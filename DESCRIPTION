@@ -9,9 +9,20 @@ Authors@R:
 Description: What the package does (one paragraph).
 License: What license is it under?
 Imports:
+    attempt,
     config (>= 0.3.1),
+    DT,
+    glue,
     golem (>= 0.3.3.9000),
-    shiny (>= 1.7.2)
+    htmltools,
+    pkgload,
+    shiny (>= 1.7.2),
+    shiny.semantic
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
+Suggests:
+    spelling,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Language: en-US

@@ -9,12 +9,29 @@ app_ui <- function(request) {
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
-    fluidPage(
-      h1("ZetaDashboard")
+    semanticPage(
+      titlePanel(title = div(img(src = "www/logo.png",
+                                 height = "10%",
+                                 width = "10%",
+                                 align = "right"),
+                             "Hemköp sales analysis")),
+      sidebar_layout(
+        sidebar_panel(
+          mod_data_settings_in("data_settings"),
+          mod_data_settings_out_cntrl_weeks("data_settings"),
+          mod_break("large"),
+          mod_hypothesis_testing_in("hypothesis_settings"),
+          mod_break("large"),
+          div(
+            action_button("radio_update", "Update Selection"),
+            textOutput("radio_result"),
+          )
+        ),
+        main_panel()
+      )
     )
   )
 }
-
 #' Add external Resources to the Application
 #'
 #' This function is internally used to add external
@@ -30,12 +47,15 @@ golem_add_external_resources <- function() {
   )
 
   tags$head(
-    favicon(),
+    favicon(ext="png"),
     bundle_resources(
       path = app_sys("app/www"),
-      app_title = "ZetaDashboard"
+      app_title = "Hemköp"
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()
   )
 }
+
+
+library(shiny.semantic)
