@@ -1,11 +1,11 @@
-mod_data_subset3_main_panel_ui <- function(id) {
+mod_single_data_subset3_main_panel_ui <- function(id) {
   ns <- shiny::NS(id)
   tagList(
     h3(tags$u(tags$em("Time scale (frequency) and sales unit:"))),
     shiny.semantic::selectInput(ns("dep_vars_select"),
-                                  "Variable to plot:",
-                                  choices = "TOTAL",
-                                  multiple = FALSE,
+                                "Variable to plot:",
+                                choices = "TOTAL",
+                                multiple = FALSE,
                                 width = "400px"),
     shiny.semantic::flowLayout(
       tags$label(tags$b(`for` = "radio_time_frequency",
@@ -18,7 +18,7 @@ mod_data_subset3_main_panel_ui <- function(id) {
         choices_value = c("weekly", "daily"),
         selected = "weekly", position = "grouped",
         type = "radio"),
-      mod_break("small"),
+      mod_single_break("small"),
       tags$label(tags$b(`for` = "yscale",
                         style = "font-size:12.5px",
                         "Unit:")),
@@ -52,7 +52,7 @@ mod_data_subset3_main_panel_ui <- function(id) {
     # )
   )
 }
-mod_data_subset3_srv <- function(id, data_subsets) {
+mod_single_data_subset3_srv <- function(id, data_subsets) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::reactive({
       names_to_choose <- names(data_subsets)
@@ -66,11 +66,11 @@ mod_data_subset3_srv <- function(id, data_subsets) {
 adjust_input_data_subset <- function(id, data_subset) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::observeEvent(data_subset(), {
-    choices_vars <- setdiff(names(data_subset()),
-                            c("butik", "vecka", "datum", "antal_kvitton"))
-    shiny.semantic::updateSelectInput(session,
-                                      inputId = "dep_vars_select",
-                                      choices = choices_vars)
+      choices_vars <- setdiff(names(data_subset()),
+                              c("butik", "vecka", "datum", "antal_kvitton"))
+      shiny.semantic::updateSelectInput(session,
+                                        inputId = "dep_vars_select",
+                                        choices = choices_vars)
     })
-    })
+  })
 }

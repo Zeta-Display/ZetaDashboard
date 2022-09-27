@@ -8,7 +8,7 @@
 #'      \item range input of weeks to use in control periods
 #'      \item radio buttons to set the unit of the dependent variable (y-axis)
 #'   }
-mod_hypothesis_testing_in <- function(id) {
+mod_single_hypothesis_testing_in <- function(id) {
   ns <- shiny::NS(id)
   tagList(
     h3(tags$u(tags$em("Hypthesis Testing: "))),
@@ -21,10 +21,10 @@ mod_hypothesis_testing_in <- function(id) {
     )
   )
 }
-mod_hypothesis_testing_srv <- function(id,
-                                       data_subset,
-                                       ref_unit,
-                                       test_periods) {
+mod_single_hypothesis_testing_srv <- function(id,
+                                              data_subset,
+                                              ref_unit,
+                                              test_periods) {
   stopifnot(shiny::is.reactive(data_subset))
   stopifnot(shiny::is.reactive(test_periods))
   shiny::moduleServer(id, function(input, output, session) {
@@ -41,7 +41,7 @@ mod_hypothesis_testing_srv <- function(id,
     })
   })
 }
-mod_hypothesis_testing_write_ou_srv <- function(id, list_reactive_htests) {
+mod_single_hypothesis_testing_write_ou_srv <- function(id, list_reactive_htests) {
   stopifnot(shiny::is.reactive(list_reactive_htests))
   shiny::moduleServer(id, function(input, output, session) {
     output$testresults <- renderUI({
@@ -52,14 +52,14 @@ mod_hypothesis_testing_write_ou_srv <- function(id, list_reactive_htests) {
                         SIMPLIFY = FALSE)
       out <- lapply(tmp_out, function(x) {
         list(htmltools::h3(x[[1]]),
-          shiny::renderPrint({x[[2]][[1]]}),
-          shiny::renderPrint({x[[2]][[2]]}))
+             shiny::renderPrint({x[[2]][[1]]}),
+             shiny::renderPrint({x[[2]][[2]]}))
       })
       out
     })
   })
 }
-mod_hypothesis_testing_ou <- function(id) {
+mod_single_hypothesis_testing_ou <- function(id) {
   ns <- shiny::NS(id)
   uiOutput(ns("testresults"))
 }

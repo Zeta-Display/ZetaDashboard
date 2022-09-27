@@ -1,4 +1,4 @@
-mod_data_subset2_srv <- function(id, data_subsets) {
+mod_single_data_subset2_srv <- function(id, data_subsets) {
   shiny::moduleServer(id, function(input, output, session) {
     data_weekly_count <- shiny::reactive({
       data_out <- data_subsets[[1]]() %>%
@@ -23,7 +23,7 @@ mod_data_subset2_srv <- function(id, data_subsets) {
 
       ref_unit2 <- paste0("sales_",input$sel_ref_unit, repl_tmp)
       names(data_out)[-c(1,2,3,4)] <- substring(names(data_out)[-c(1,2,3,4)],
-                                              first = nchar(ref_unit2) + 2)
+                                                first = nchar(ref_unit2) + 2)
       data_out
     })
     data_weekly_fraction <- shiny::reactive({
@@ -49,7 +49,7 @@ mod_data_subset2_srv <- function(id, data_subsets) {
 
       ref_unit2 <- paste0("sales_",input$sel_ref_unit, repl_tmp)
       names(data_out)[-c(1,2,3,4)] <- substring(names(data_out)[-c(1,2,3,4)],
-                                              first = nchar(ref_unit2) + 2)
+                                                first = nchar(ref_unit2) + 2)
       data_out
     })
     list(data_weekly_count = data_weekly_count,

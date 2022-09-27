@@ -9,25 +9,25 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_data_plot_ou <- function(id) {
+mod_single_data_plot_ou <- function(id) {
   ns <- shiny::NS(id)
   tagList(
     h3("Sales over time"),
     plotly::plotlyOutput(ns("data_plot")),
-    mod_break("small")
+    mod_single_break("small")
   )
 }
 #' plot_benchmark Server Functions
 #'
 #' @noRd
-mod_plot_data_srv <- function(id, data_subset, test_week) {
+mod_single_plot_data_srv <- function(id, data_subset, test_week) {
   stopifnot(shiny::is.reactive(data_subset))
   stopifnot(shiny::is.reactive(test_week))
   shiny::moduleServer(id, function(input, output, session) {
     output$data_plot <- plotly::renderPlotly({
       data_names_info  <- names(data_subset())
       var_dep_taken   <- data_names_info[grepl(input[["dep_vars_select"]],
-                                                data_names_info)]
+                                               data_names_info)]
       frequency     <- ifelse(any(grepl("datum", data_names_info)),
                               "daily", "weekly")
 

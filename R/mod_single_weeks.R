@@ -1,4 +1,13 @@
-mod_weeks_inp_control_ui <- function(id) {
+mod_single_weeks_sidepanel_ui <- function(id) {
+  ns <- shiny::NS(id)
+  shiny::tagList(
+    mod_single_weeks_inp_control_ui(id),
+    mod_single_weeks_out_dates_ui(id),
+    mod_single_break("small"),
+    mod_single_weeks_inp_testing_ui(id),
+  )
+}
+mod_single_weeks_inp_control_ui <- function(id) {
   ns <- shiny::NS(id)
   tagList(
     h3(tags$u(tags$em("Control vs. Test Weeks in 2022:"))),
@@ -13,18 +22,18 @@ mod_weeks_inp_control_ui <- function(id) {
                                  step = 1)
   )
 }
-mod_weeks_inp_testing_ui <- function(id) {
+mod_single_weeks_inp_testing_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny.semantic::selectInput(ns("week_testing"),
                               "Testing Week:",
                               choices = c("week 34" = 34,
                                           "week 35" = 35,
                                           "week 36" = 36),
-                                          # "week 37" = 37),
+                              # "week 37" = 37),
                               selected = 34,
                               multiple = FALSE)
 }
-mod_weeks_out_dates_ui <- function(id) {
+mod_single_weeks_out_dates_ui <- function(id) {
   ns <- shiny::NS(id)
   tagList(
     textOutput(ns("date_num_weeks")),
@@ -33,7 +42,7 @@ mod_weeks_out_dates_ui <- function(id) {
     textOutput(ns("date_end"))
   )
 }
-mod_weeks_get_dates_srv <- function(id, start_test_weeks_all = 34) {
+mod_single_weeks_get_dates_srv <- function(id, start_test_weeks_all = 34) {
   shiny::moduleServer(id, function(input, output, session) {
     tmp_date_pattern <- paste0("%Y%W%u")
     tmp_date_start <- shiny::reactive({
@@ -54,10 +63,10 @@ mod_weeks_get_dates_srv <- function(id, start_test_weeks_all = 34) {
   }
   )
 }
-mod_weeks_out_dates_srv <- function(id,
-                                    dates_start,
-                                    dates_end,
-                                    dates_num_weeks) {
+mod_single_weeks_out_dates_srv <- function(id,
+                                           dates_start,
+                                           dates_end,
+                                           dates_num_weeks) {
   stopifnot(is.reactive(dates_start), is.reactive(dates_num_weeks))
   shiny::moduleServer(id, function(input, output, session) {
     output$date_num_weeks <- renderText({
@@ -71,7 +80,7 @@ mod_weeks_out_dates_srv <- function(id,
     })
   })
 }
-mod_data_subset0_srv <- function(id) {
+mod_single_data_subset0_srv <- function(id) {
   # stopifnot(is.reactive(butik) && is.reactive(ref_unit))
   moduleServer(id, function(input, output, session) {
 
@@ -84,15 +93,15 @@ mod_data_subset0_srv <- function(id) {
     })
     data_weekly <- shiny::reactive({
       id_data_weekly <- grep(paste0("weekly_v", input[["week_testing"]]),
-                                    names(data_list))
-       data_list[[id_data_weekly]] %>%
-         dplyr::filter(.data$vecka %in% range_weeks())
+                             names(data_list))
+      data_list[[id_data_weekly]] %>%
+        dplyr::filter(.data$vecka %in% range_weeks())
     })
     data_daily <- shiny::reactive({
       id_data_daily <- grep(paste0("daily_v", input[["week_testing"]]),
                             names(data_list))
       data_list[[id_data_daily]] %>%
-         dplyr::filter(.data$vecka %in% range_weeks())
+        dplyr::filter(.data$vecka %in% range_weeks())
     })
     list(data_weekly = data_weekly,
          data_daily =  data_daily)

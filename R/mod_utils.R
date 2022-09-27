@@ -1,4 +1,4 @@
-mod_break <- function(size) {
+mod_single_break <- function(size) {
   if (size == "small") {
     return(tagList(tags$br()))
   } else if (size == "medium") {

@@ -18,18 +18,14 @@ app_ui <- function(request) {
       sidebar_layout(
         sidebar_panel = shiny.semantic::sidebar_panel(
           conditionalPanel("input.analysis_all == 'tab_1'",
-                           mod_weeks_inp_control_ui("control_testing_weeks"),
-                           mod_weeks_out_dates_ui("control_testing_weeks"),
-                           mod_break("small"),
-                           mod_weeks_inp_testing_ui("control_testing_weeks"),
-                           mod_break("medium"),
-                           mod_data_subset1_main_panel_ui("data_subset1"),
-                           mod_break("medium"),
-                           mod_hypothesis_testing_in("hypothesis_testing")
+                           mod_single_weeks_sidepanel_ui("control_testing_weeks"),
+                           mod_single_break("medium"),
+                           mod_single_data_subset1_sidepanel_ui("data_subset1"),
+                           mod_single_break("medium"),
+                           mod_single_hypothesis_testing_in("hypothesis_testing")
                            ),
           conditionalPanel("input.analysis_all == 'tab_2'",
-                           mod_weeks_inp_testing_ui("testing_week_comparison"),
-                           h5("SPASST"))
+                           mod_comparison_weeks_sidepanel_ui("mod_comparison_weeks_sidepanel_ui"))
         ),
         main_panel = shiny.semantic::main_panel(
           shiny.semantic::tabset(
@@ -37,16 +33,16 @@ app_ui <- function(request) {
               list(
                 list(menu = "Analysis - single shop",
                      content = div(
-                       mod_break("small"),
-                       mod_data_subset3_main_panel_ui("data_subset3"),
-                       mod_break("medium"),
-                       mod_data_plot_ou("data_subset3"),
-                       mod_break("medium"),
+                       mod_single_break("small"),
+                       mod_single_data_subset3_main_panel_ui("data_subset3"),
+                       mod_single_break("medium"),
+                       mod_single_data_plot_ou("data_subset3"),
+                       mod_single_break("medium"),
                        h3("Data subset used"),
                        reactable::reactableOutput("table"),
-                       mod_break("medium"),
+                       mod_single_break("medium"),
                        h3("Hypothesis tests"),
-                       mod_hypothesis_testing_ou("hypothesis_testing")),
+                       mod_single_hypothesis_testing_ou("hypothesis_testing")),
                      id = "tab_1"),
                 list(menu = "Analysis - comparison of shops",
                      content = "true content",
