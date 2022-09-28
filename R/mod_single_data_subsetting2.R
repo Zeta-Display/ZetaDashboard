@@ -27,7 +27,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
     data_weekly_fraction <- shiny::reactive({
       data_out <- data_subsets[[1]]() %>%
         dplyr::select(-dplyr::contains("count")) %>%
-        dplyr::mutate_at(dplyr::vars(dplyr::contains("frac")), round, 2)
+        dplyr::mutate_at(dplyr::vars(dplyr::contains("frac")), round, 4)
       repl_tmp <- "_frac"
       data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
 
@@ -39,7 +39,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
     data_daily_fraction <- shiny::reactive({
       data_out <- data_subsets[[2]]() %>%
         dplyr::select(-dplyr::contains("count")) %>%
-        dplyr::mutate_at(dplyr::vars(dplyr::contains("frac")), round, 2)
+        dplyr::mutate_at(dplyr::vars(dplyr::contains("frac")), round, 4)
       repl_tmp <- "_frac"
       data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
 

@@ -14,7 +14,7 @@ mod_single_data_plot_ou <- function(id) {
   tagList(
     h3("Sales over time"),
     plotly::plotlyOutput(ns("data_plot")),
-    mod_single_break("small")
+    mod_break_vspace("small")
   )
 }
 #' plot_benchmark Server Functions
@@ -47,7 +47,7 @@ generate_ggplot <- function(data_set,
                             y_var,
                             y_lab,
                             frequency) {
-  ggplot_out <- ggplot2::ggplot(data_set, ggplot2::aes(fill = `.`)) +
+  ggplot_out <- ggplot2::ggplot(data_set, ggplot2::aes(fill = group)) +
     ggplot2::geom_bar(ggplot2::aes(x = .data$vecka_time,
                                    y = .data[[y_var]]),
                       stat = "identity",
@@ -78,15 +78,17 @@ get_ggplot_data <- function(data_set,
   stopifnot(shiny::is.reactive(test_week))
 
   data_out <- data_set()
-  data_out$`.` <- ifelse(data_out$vecka %in% (as.numeric(test_week()) + 202200),
-                         "testing",
-                         "control")
+  data_out$group <- ifelse(data_out$vecka %in% (as.numeric(test_week()) + 202200),
+                           "testing",
+                           "control")
   if(frequency == "daily") {
     data_out$`vecka_time` <- as.Date(data_out$datum)
   } else if (frequency == "weekly") {
     data_out$`vecka_time`    <- paste0("2022-", data_out$vecka - 202200)
   }
-  data_out %>% dplyr::select(tidyselect::all_of(c(y_var, "vecka_time", ".")))
+  data_out %>% dplyr::select(tidyselect::all_of(c(y_var,
+                                                  "vecka_time",
+                                                  "group")))
 }
 generate_plotly <- function(ggplot_to_use) {
   plotly::ggplotly(ggplot_to_use)

@@ -1,13 +1,12 @@
 {
   "butik":
   {
-     "HEMKÖP UPPSALA VÄSTERTORG": ["uppsala"],
      "HEMKÖP OSKARSTRÖM BLÅKLINTSVÄGEN": ["oskarström"],
-     "HEMKÖP MÖLNLYCKE C": ["mölnlycke"],
-     "HEMKÖP MALMÖ TRIANGELN": ["triangeln"],
+     "HEMKÖP UPPSALA VÄSTERTORG": ["uppsala"],
+     "HEMKÖP DALA-JÄRNA MYRBACKA": ["dala"],
      "HEMKÖP FALUN C": ["falun"],
-     "HEMKÖP DALA-JÄRNA MYRBACKA": ["dala"]
-
+     "HEMKÖP MÖLNLYCKE C": ["mölnlycke"],
+     "HEMKÖP MALMÖ TRIANGELN": ["triangeln"]
   },
   "zoner":
   {

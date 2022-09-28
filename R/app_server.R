@@ -62,8 +62,14 @@ app_server <- function(input, output, session) {
   data_2_TC2 <- mod_data_subset_time_unit_srv("data_subset2_c",
                                               data_1_TC2)
 
-
-
+  mod_comparison_plot_data_srv("data_subset2_c",
+                               data_2_TC1,
+                               test_butik_taken1,
+                               "data_plot_sc1")
+  mod_comparison_plot_data_srv("data_subset2_c",
+                               data_2_TC2,
+                               test_butik_taken2,
+                               "data_plot_sc2")
 
 
   output$table_c1 <- reactable::renderReactable({

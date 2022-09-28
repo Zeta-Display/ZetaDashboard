@@ -5,7 +5,7 @@ mod_comparison_weeks_sidepanel_ui <- function(id) {
           shiny.semantic::selectInput(ns("sel_ref_unit"),
                                       "Reference Unit:",
                                       choices = list_ref_unit),
-          mod_single_break("small")
+          mod_break_vspace("small")
           )
 }
 mod_comparison_data_subset0_srv <- function(id) {

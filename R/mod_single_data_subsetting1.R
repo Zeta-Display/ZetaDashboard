@@ -4,7 +4,7 @@ mod_single_data_subset1_sidepanel_ui <- function(id) {
           shiny.semantic::selectInput(ns("sel_butik"),
                                       "Butik:",
                                       choices = list_butik),
-          mod_single_break("small"),
+          mod_break_vspace("small"),
           shiny.semantic::selectInput(ns("sel_ref_unit"),
                                       "Reference Unit:",
                                       choices = list_ref_unit)

@@ -3,7 +3,7 @@ mod_single_weeks_sidepanel_ui <- function(id) {
   shiny::tagList(
     mod_single_weeks_inp_control_ui(id),
     mod_single_weeks_out_dates_ui(id),
-    mod_single_break("small"),
+    mod_break_vspace("small"),
     mod_single_weeks_inp_testing_ui(id),
   )
 }

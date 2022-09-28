@@ -1,4 +1,4 @@
-mod_single_break <- function(size) {
+mod_break_vspace <- function(size) {
   if (size == "small") {
     return(tagList(tags$br()))
   } else if (size == "medium") {

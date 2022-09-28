@@ -22,7 +22,7 @@ get_zeta_display_color_settings <- function() {
                              "#000000")
 
   f_col  <- ("#404040")
-  f_size <- 14
+  f_size <- 12
 
   t1 <- ggplot2::theme(plot.title = ggplot2::element_text(colour = f_col,
                                                           size = f_size + 2,

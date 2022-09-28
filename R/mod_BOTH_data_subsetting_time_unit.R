@@ -18,7 +18,7 @@ mod_data_subset_time_unit_mainpanel_ui <- function(id) {
         choices_value = c("weekly", "daily"),
         selected = "weekly", position = "grouped",
         type = "radio"),
-      mod_single_break("small"),
+      mod_break_vspace("small"),
       tags$label(tags$b(`for` = "yscale",
                         style = "font-size:12.5px",
                         "Unit:")),
