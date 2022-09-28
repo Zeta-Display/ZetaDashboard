@@ -5,8 +5,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
         dplyr::select(-dplyr::contains("frac")) %>%
         dplyr::mutate_at(dplyr::vars(dplyr::contains("count")), round, 0)
       repl_tmp <- "_count"
-      butik_taken <-  names(match_list_butik) == unique(data_out$butik)
-      data_out$butik <- unname(unlist(match_list_butik[butik_taken]))
+      data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
 
       ref_unit2 <- paste0("sales_",input$sel_ref_unit, repl_tmp)
       names(data_out)[-c(1,2,3)] <- substring(names(data_out)[-c(1,2,3)],
@@ -18,8 +17,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
         dplyr::select(-dplyr::contains("frac")) %>%
         dplyr::mutate_at(dplyr::vars(dplyr::contains("count")), round, 0)
       repl_tmp <- "_count"
-      butik_taken <-  names(match_list_butik) == unique(data_out$butik)
-      data_out$butik <- unname(unlist(match_list_butik[butik_taken]))
+      data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
 
       ref_unit2 <- paste0("sales_",input$sel_ref_unit, repl_tmp)
       names(data_out)[-c(1,2,3,4)] <- substring(names(data_out)[-c(1,2,3,4)],
@@ -31,8 +29,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
         dplyr::select(-dplyr::contains("count")) %>%
         dplyr::mutate_at(dplyr::vars(dplyr::contains("frac")), round, 2)
       repl_tmp <- "_frac"
-      butik_taken <-  names(match_list_butik) == unique(data_out$butik)
-      data_out$butik <- unname(unlist(match_list_butik[butik_taken]))
+      data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
 
       ref_unit2 <- paste0("sales_",input$sel_ref_unit, repl_tmp)
       names(data_out)[-c(1,2,3)] <- substring(names(data_out)[-c(1,2,3)],
@@ -44,8 +41,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
         dplyr::select(-dplyr::contains("count")) %>%
         dplyr::mutate_at(dplyr::vars(dplyr::contains("frac")), round, 2)
       repl_tmp <- "_frac"
-      butik_taken <-  names(match_list_butik) == unique(data_out$butik)
-      data_out$butik <- unname(unlist(match_list_butik[butik_taken]))
+      data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
 
       ref_unit2 <- paste0("sales_",input$sel_ref_unit, repl_tmp)
       names(data_out)[-c(1,2,3,4)] <- substring(names(data_out)[-c(1,2,3,4)],

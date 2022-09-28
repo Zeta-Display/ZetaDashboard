@@ -24,19 +24,28 @@ mod_single_hypothesis_testing_in <- function(id) {
 mod_single_hypothesis_testing_srv <- function(id,
                                               data_subset,
                                               ref_unit,
-                                              test_periods) {
+                                              test_groups,
+                                              type) {
   stopifnot(shiny::is.reactive(data_subset))
-  stopifnot(shiny::is.reactive(test_periods))
+  stopifnot(shiny::is.reactive(test_groups))
   shiny::moduleServer(id, function(input, output, session) {
     shiny::reactive({
-      test_period_full <- as.numeric(paste0("2022",  test_periods()))
-      cntr_period_full <- data_subset() %>% dplyr::pull(.data$vecka)
-      cntr_period_full <- setdiff(as.numeric(cntr_period_full),
-                                  test_periods())
+      if (type == "vecka") {
+        test_group_full <- as.numeric(paste0("2022",  test_groups()))
+        cntr_group_full <- data_subset() %>% dplyr::pull(.data[[type]])
+        cntr_group_full <- setdiff(as.numeric(cntr_group_full),
+                                   test_group_full)
+      } else if (type == "butik") {
+        test_group_full <- test_groups()
+        cntr_group_full <- data_subset() %>% dplyr::pull(.data[[type]])
+        cntr_group_full <- setdiff(cntr_group_full,
+                                   test_group_full)
+      }
+
       test_out <- ZetaAnalyticsTB::perform_tests(data_set = data_subset(),
-                                                 type = "vecka",
-                                                 cntrl = cntr_period_full,
-                                                 test  = test_period_full)
+                                                 type = type,
+                                                 cntrl = cntr_group_full,
+                                                 test  = test_group_full)
       test_out
     })
   })
@@ -51,7 +60,7 @@ mod_single_hypothesis_testing_write_ou_srv <- function(id, list_reactive_htests)
                         tmp_names, list_reactive_htests(),
                         SIMPLIFY = FALSE)
       out <- lapply(tmp_out, function(x) {
-        list(htmltools::h3(x[[1]]),
+        list(htmltools::h5(x[[1]]),
              shiny::renderPrint({x[[2]][[1]]}),
              shiny::renderPrint({x[[2]][[2]]}))
       })

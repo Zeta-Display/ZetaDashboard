@@ -1,4 +1,4 @@
-mod_single_data_subset3_main_panel_ui <- function(id) {
+mod_data_subset_time_unit_mainpanel_ui <- function(id) {
   ns <- shiny::NS(id)
   tagList(
     h3(tags$u(tags$em("Time scale (frequency) and sales unit:"))),
@@ -52,7 +52,7 @@ mod_single_data_subset3_main_panel_ui <- function(id) {
     # )
   )
 }
-mod_single_data_subset3_srv <- function(id, data_subsets) {
+mod_data_subset_time_unit_srv <- function(id, data_subsets) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::reactive({
       names_to_choose <- names(data_subsets)

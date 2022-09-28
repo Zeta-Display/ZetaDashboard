@@ -18,14 +18,17 @@ app_ui <- function(request) {
       sidebar_layout(
         sidebar_panel = shiny.semantic::sidebar_panel(
           conditionalPanel("input.analysis_all == 'tab_1'",
-                           mod_single_weeks_sidepanel_ui("control_testing_weeks"),
+                           mod_single_weeks_sidepanel_ui("control_test_weeks"),
                            mod_single_break("medium"),
                            mod_single_data_subset1_sidepanel_ui("data_subset1"),
                            mod_single_break("medium"),
-                           mod_single_hypothesis_testing_in("hypothesis_testing")
-                           ),
+                           mod_single_hypothesis_testing_in("hypothesis_tests")
+          ),
           conditionalPanel("input.analysis_all == 'tab_2'",
-                           mod_comparison_weeks_sidepanel_ui("mod_comparison_weeks_sidepanel_ui"))
+                           mod_comparison_weeks_sidepanel_ui("comparison_weeks"),
+                           mod_single_break("medium"),
+                           mod_comparison_testcase_ui("testcase1", 1),
+                           mod_comparison_testcase_ui("testcase2", 2))
         ),
         main_panel = shiny.semantic::main_panel(
           shiny.semantic::tabset(
@@ -34,7 +37,7 @@ app_ui <- function(request) {
                 list(menu = "Analysis - single shop",
                      content = div(
                        mod_single_break("small"),
-                       mod_single_data_subset3_main_panel_ui("data_subset3"),
+                       mod_data_subset_time_unit_mainpanel_ui("data_subset3"),
                        mod_single_break("medium"),
                        mod_single_data_plot_ou("data_subset3"),
                        mod_single_break("medium"),
@@ -42,10 +45,32 @@ app_ui <- function(request) {
                        reactable::reactableOutput("table"),
                        mod_single_break("medium"),
                        h3("Hypothesis tests"),
-                       mod_single_hypothesis_testing_ou("hypothesis_testing")),
+                       mod_single_hypothesis_testing_ou("hypothesis_tests")
+                       ),
                      id = "tab_1"),
                 list(menu = "Analysis - comparison of shops",
-                     content = "true content",
+                     content = div(
+                       mod_single_break("small"),
+                       mod_data_subset_time_unit_mainpanel_ui("data_subset2_c"),
+                       mod_single_break("medium"),
+                       shiny.semantic::flow_layout(
+                         htmltools::tagList(
+                           h3(tags$b(tags$em("Test scenario 1:"))),
+                           h4("Data subset used for scenario 1"),
+                           reactable::reactableOutput("table_c1"),
+                           h4("Hypothesis tests for scenario 1"),
+                           mod_single_hypothesis_testing_ou("hypothesis_tests_TC1")
+                         ),
+                         htmltools::tagList(
+                           h3(tags$b(tags$em("Test scenario 2:"))),
+                           h4("Data subset used for scenario 2"),
+                           reactable::reactableOutput("table_c2"),
+                           h4("Hypothesis tests for scenario 2"),
+                           mod_single_hypothesis_testing_ou("hypothesis_tests_TC2")),
+                         min_cell_width = "450px",
+                         max_cell_width = "1fr"
+                       )
+                     ),
                      id = "tab_2")
               ),
             active = "tab_1",

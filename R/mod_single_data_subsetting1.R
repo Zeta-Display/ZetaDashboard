@@ -7,8 +7,7 @@ mod_single_data_subset1_sidepanel_ui <- function(id) {
           mod_single_break("small"),
           shiny.semantic::selectInput(ns("sel_ref_unit"),
                                       "Reference Unit:",
-                                      choices = list_ref_unit),
-          mod_single_break("small"),
+                                      choices = list_ref_unit)
 
   )
 }
@@ -39,7 +38,7 @@ mod_single_data_subset1_srv <- function(id, data_subsets) {
   }
   )
 }
-mod_single_data_subset1_get_ref_unit_srv <- function(id) {
+mod_single_get_ref_unit_srv <- function(id) {
   moduleServer(id, function(input, output, session) {
     shiny::reactive({input$sel_ref_unit})})
 }
