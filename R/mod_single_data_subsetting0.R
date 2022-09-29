@@ -28,8 +28,8 @@ mod_single_weeks_inp_testing_ui <- function(id) {
                               "Testing Week:",
                               choices = c("week 34" = 34,
                                           "week 35" = 35,
-                                          "week 36" = 36),
-                              # "week 37" = 37),
+                                          "week 36" = 36,
+                                          "week 37" = 37),
                               selected = 34,
                               multiple = FALSE)
 }
