@@ -30,13 +30,13 @@ app_server <- function(input, output, session) {
   mod_single_plot_data_srv("data_subset3",
                            data_subset3,
                            dates_taken$test_week)
-  htest_out <- mod_single_hypothesis_testing_srv(id = "hypothesis_tests",
-                                                 data_subsets2$data_weekly_count,
-                                                 ref_unit_taken,
-                                                 dates_taken$test_week,
-                                                 type = "vecka")
-  mod_single_hypothesis_testing_write_ou_srv(id = "hypothesis_tests",
-                                             htest_out)
+  htest_out <- mod_hypothesis_testing_srv(id = "hypothesis_tests_tab1",
+                                          data_subsets2$data_weekly_count,
+                                          ref_unit_taken,
+                                          dates_taken$test_week,
+                                          type = "vecka")
+  mod_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_single",
+                                      htest_out)
   #
   #
   #
@@ -71,26 +71,24 @@ app_server <- function(input, output, session) {
                                test_butik_taken2,
                                "data_plot_sc2")
 
-
   output$table_c1 <- reactable::renderReactable({
     reactable::reactable(data_2_TC1())
   })
-  htest_out <- mod_single_hypothesis_testing_srv(id = "hypothesis_tests_TC1",
-                                                 data_1_TC1$data_weekly_count,
-                                                 ref_unit_taken2,
-                                                 test_butik_taken1,
-                                                 type = "butik")
-  mod_single_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_TC1",
-                                             htest_out)
+  htest_out1 <- mod_hypothesis_testing_srv(id = "hypothesis_tests_tab2",
+                                           data_1_TC1$data_weekly_count,
+                                           ref_unit_taken2,
+                                           test_butik_taken1,
+                                           type = "butik")
+  mod_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_TC1",
+                                      htest_out1)
   output$table_c2 <- reactable::renderReactable({
     reactable::reactable(data_2_TC2())
   })
-  htest_out2 <- mod_single_hypothesis_testing_srv(id = "hypothesis_tests_TC2",
-                                                  data_1_TC2$data_weekly_count,
-                                                  ref_unit_taken2,
-                                                  test_butik_taken2,
-                                                  type = "butik")
-  mod_single_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_TC2",
-                                             htest_out2)
-
+  htest_out2 <- mod_hypothesis_testing_srv(id = "hypothesis_tests_tab2",
+                                           data_1_TC2$data_weekly_count,
+                                           ref_unit_taken2,
+                                           test_butik_taken2,
+                                           type = "butik")
+  mod_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_TC2",
+                                      htest_out2)
 }

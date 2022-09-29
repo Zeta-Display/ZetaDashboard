@@ -5,9 +5,9 @@ account: cologne-analytics
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 7133362
-bundleId: 6347048
+bundleId: 6351564
 url: https://cologne-analytics.shinyapps.io/ZetaDashboard/
-when: 1664368771.27753
-lastSyncTime: 1664368771.27754
+when: 1664457068.67872
+lastSyncTime: 1664457068.67874
 asMultiple: FALSE
 asStatic: FALSE
