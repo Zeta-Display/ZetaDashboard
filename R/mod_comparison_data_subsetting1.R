@@ -3,29 +3,31 @@ mod_comparison_testcase_ui <- function(id, num) {
   tagList(h3(tags$u(tags$em(paste0("Define test scenario ", num, ":")))),
           shiny.semantic::selectInput(ns("sel_butik_cntrl"),
                                       "Control butik:",
-                                      choices = list_butik[c(1, 4)]),
+                                      choices = butik_lab_cntr[[num]],
+                                      selected = butik_lab_cntr[[num]][1],
+                                      multiple = TRUE),
           mod_break_vspace("small"),
           shiny.semantic::selectInput(ns("sel_butik_test"),
                                       "Test butik:",
-                                      choices = list_butik[c(2, 3)],
-                                      selected = list_butik[c(2, 3)],
+                                      choices = butik_lab_test[[num]],
+                                      selected = butik_lab_test[[num]],
                                       multiple = TRUE)
   )
 }
 adjust_input_control_stores <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::observeEvent(input[["sel_butik_cntrl"]], {
-      if (input[["sel_butik_cntrl"]] == "HEMKÖP FALUN C") {
-        choices_vars <- list_butik[c(5, 6)]
-        selected_vars <- list_butik[5]
-      } else if (input[["sel_butik_cntrl"]] == "HEMKÖP OSKARSTRÖM BLÅKLINTSVÄGEN") {
-        choices_vars <- list_butik[c(2, 3)]
-        selected_vars <- list_butik[2]
-      }
-      shiny.semantic::updateSelectInput(session,
-                                        inputId = "sel_butik_test",
-                                        choices = choices_vars,
-                                        selected = selected_vars)
+      # if (input[["sel_butik_cntrl"]] %in% butik_lab_cntr[["sma"]]) {
+        # choices_vars <- butik_lab_test[["sma"]]
+        # selected_vars <- butik_lab_test[["sma"]][1]
+      # } else if (input[["sel_butik_cntrl"]] %in% butik_lab_cntr[["sto"]]) {
+        # choices_vars <- butik_lab_test[["sto"]]
+        # selected_vars <- butik_lab_test[["sto"]][1]
+      # }
+      # shiny.semantic::updateSelectInput(session,
+      #                                   inputId = "sel_butik_test",
+      #                                   choices = choices_vars,
+      #                                   selected = selected_vars)
     })
   })
 }
@@ -40,14 +42,14 @@ mod_comparison_data_subset1_srv <- function(id, data_subsets, ref_unit_taken) {
     data_weekly_count <- shiny::reactive({
       data_out <- data_subsets[[1]]() %>%
         dplyr::filter(.data$butik %in% range_butik()) %>%
-        dplyr::select(-dplyr::contains("frac")) %>%
+        dplyr::select(-dplyr::contains("convrate")) %>%
         dplyr::mutate_at(dplyr::vars(dplyr::contains("count")), round, 0)
       repl_tmp <- "_count"
-      data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
+      data_out$butik <- replace_butik_lab_with_var(data_out$butik)
 
-      ref_unit2 <- paste0("sales_", ref_unit_taken(), repl_tmp)
-      names(data_out)[-c(1,2,3)] <- substring(names(data_out)[-c(1,2,3)],
-                                              first = nchar(ref_unit2) + 2)
+      data_out <- rename_data_set_with_var(data_out, skip = 3,
+                                           ref_unit = paste0(ref_unit_taken(),
+                                                             repl_tmp))
       attr(data_out, which = "var_type") <- "count"
       data_out
     })
@@ -55,55 +57,55 @@ mod_comparison_data_subset1_srv <- function(id, data_subsets, ref_unit_taken) {
       # browser()
       data_out <- data_subsets[[2]]() %>%
         dplyr::filter(.data$butik %in% range_butik()) %>%
-        dplyr::select(-dplyr::contains("frac")) %>%
+        dplyr::select(-dplyr::contains("convrate")) %>%
         dplyr::mutate_at(dplyr::vars(dplyr::contains("count")), round, 0)
       repl_tmp <- "_count"
-      data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
+      data_out$butik <- replace_butik_lab_with_var(data_out$butik)
 
-      ref_unit2 <- paste0("sales_", ref_unit_taken(), repl_tmp)
-      names(data_out)[-c(1,2,3,4)] <- substring(names(data_out)[-c(1,2,3,4)],
-                                                first = nchar(ref_unit2) + 2)
+      data_out <- rename_data_set_with_var(data_out, skip = 4,
+                                           ref_unit = paste0(ref_unit_taken(),
+                                                             repl_tmp))
       attr(data_out, which = "var_type") <- "count"
       data_out
     })
-    data_weekly_fraction <- shiny::reactive({
+    data_weekly_convrate <- shiny::reactive({
       data_out <- data_subsets[[1]]() %>%
         dplyr::filter(.data$butik %in% range_butik())  %>%
         dplyr::select(-dplyr::contains("count")) %>%
-        dplyr::mutate_at(dplyr::vars(dplyr::contains("frac")), round, 4)
-      repl_tmp <- "_frac"
-      data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
+        dplyr::mutate_at(dplyr::vars(dplyr::contains("convrate")), round, 4)
+      repl_tmp <- "_convrate"
+      data_out$butik <- replace_butik_lab_with_var(data_out$butik)
 
-      ref_unit2 <- paste0("sales_", ref_unit_taken(), repl_tmp)
-      names(data_out)[-c(1,2,3)] <- substring(names(data_out)[-c(1,2,3)],
-                                              first = nchar(ref_unit2) + 2)
-      attr(data_out, which = "var_type") <- "fraction"
+      data_out <- rename_data_set_with_var(data_out, skip = 3,
+                                           ref_unit = paste0(ref_unit_taken(),
+                                                             repl_tmp))
+      attr(data_out, which = "var_type") <- "convrate"
       data_out
     })
-    data_daily_fraction <- shiny::reactive({
+    data_daily_convrate <- shiny::reactive({
       data_out <- data_subsets[[2]]() %>%
         dplyr::filter(.data$butik %in% range_butik())  %>%
         dplyr::select(-dplyr::contains("count")) %>%
-        dplyr::mutate_at(dplyr::vars(dplyr::contains("frac")), round, 4)
-      repl_tmp <- "_frac"
-      data_out$butik <- unlist(unname(match_list_butik[data_out$butik]))
+        dplyr::mutate_at(dplyr::vars(dplyr::contains("convrate")), round, 4)
+      repl_tmp <- "_convrate"
+      data_out$butik <- replace_butik_lab_with_var(data_out$butik)
 
-      ref_unit2 <- paste0("sales_", ref_unit_taken(), repl_tmp)
-      names(data_out)[-c(1,2,3,4)] <- substring(names(data_out)[-c(1,2,3,4)],
-                                                first = nchar(ref_unit2) + 2)
-      attr(data_out, which = "var_type") <- "fraction"
+      data_out <- rename_data_set_with_var(data_out, skip = 4,
+                                           ref_unit = paste0(ref_unit_taken(),
+                                                             repl_tmp))
+      attr(data_out, which = "var_type") <- "convrate"
       data_out
     })
     list(data_weekly_count = data_weekly_count,
-         data_weekly_fraction = data_weekly_fraction,
+         data_weekly_convrate = data_weekly_convrate,
          data_daily_count = data_daily_count,
-         data_daily_fraction = data_daily_fraction)
+         data_daily_convrate = data_daily_convrate)
   })
 }
 mod_comparison_get_test_butik_srv <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::reactive({
-      unlist(unname(match_list_butik[list_butik %in% input$sel_butik_test]))
+      unlist(unname(butik_val_all[butik_lab_all %in% input$sel_butik_test]))
     })
   })
 }

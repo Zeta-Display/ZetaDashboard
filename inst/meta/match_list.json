@@ -1,12 +1,34 @@
 {
   "butik":
   {
-     "HEMKÖP OSKARSTRÖM BLÅKLINTSVÄGEN": ["oskarström"],
-     "HEMKÖP UPPSALA VÄSTERTORG": ["uppsala"],
-     "HEMKÖP DALA-JÄRNA MYRBACKA": ["dala"],
-     "HEMKÖP FALUN C": ["falun"],
-     "HEMKÖP MÖLNLYCKE C": ["mölnlycke"],
-     "HEMKÖP MALMÖ TRIANGELN": ["triangeln"]
+    "sma":
+    {
+      "control":
+      {
+        "OSKARSTRÖM BLÅKLINTSVÄGEN": ["oskarstroem"],
+        "NORRKÖPING LASARETTSGATAN": ["norrkoeping"],
+        "ÖRNSKÖLDSVIK DOMSJÖ": ["oernskoelds"]
+      },
+      "testing":
+      {
+        "UPPSALA VÄSTERTORG": ["uppsala"],
+        "DALA-JÄRNA MYRBACKA": ["dala"]
+      }
+    },
+    "stora":
+    {
+      "control":
+      {
+        "FALUN C": ["falun"],
+        "GÖTEBORG STIGBERGSTORGET": ["goeteborg"],
+        "STOCKHOLM SKARPNÄCK": ["stockholm"]
+      },
+      "testing":
+      {
+     "MÖLNLYCKE C": ["moelnlycke"],
+     "MALMÖ TRIANGELN": ["triangeln"]
+      }
+    }
   },
   "zoner":
   {

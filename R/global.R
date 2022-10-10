@@ -17,7 +17,33 @@ global <- quote({
   match_list <- jsonlite::fromJSON("inst/meta/match_list.json")
   # list_butik <- unlist(match_list$butik)
   match_list_butik <- match_list$butik
-  list_butik <- names(match_list_butik)
+
+  match_list_butik_sma <-match_list_butik$sma
+  match_list_butik_sma_cntr <- match_list_butik_sma$control
+  match_list_butik_sma_test <- match_list_butik_sma$testing
+  match_list_butik_sma_all  <- c(match_list_butik_sma_cntr,
+                                 match_list_butik_sma_test)
+  match_list_butik_sto <-match_list_butik$stora
+  match_list_butik_sto_cntr <- match_list_butik_sto$control
+  match_list_butik_sto_test <- match_list_butik_sto$testing
+  match_list_butik_sto_all  <- c(match_list_butik_sto_cntr,
+                                 match_list_butik_sto_test)
+
+  # butik_lab_all <- names(match_list_butik_sto_all)
+  # butik_val_all <- match_list_butik_sto_all
+  butik_lab_all <- names(match_list_butik_sma_all)
+  butik_val_all <- match_list_butik_sma_all
+
+  butik_lab_cntr <- list(sma = names(match_list_butik_sma_cntr),
+                         sto = names(match_list_butik_sto_cntr))
+  butik_lab_test <- list(sma = names(match_list_butik_sma_test),
+                         sto = names(match_list_butik_sto_test))
+  butik_val_cntr <- list(sma = unlist(match_list_butik_sma_cntr),
+                         sto = unlist(match_list_butik_sto_cntr))
+  butik_val_test <- list(sma = unlist(match_list_butik_sma_test),
+                         sto = unlist(match_list_butik_sto_test))
+
+  # list_butik <- names(match_list_butik)
   list_ref_unit  <- c(Zoner = "zoner",
                       Kampanj = "kampanj",
                       Skylttyp = "skylttyp")

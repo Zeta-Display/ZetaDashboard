@@ -20,17 +20,18 @@ app_ui <- function(request) {
           conditionalPanel("input.analysis_all == 'tab_1'",
                            mod_single_weeks_sidepanel_ui("control_test_weeks"),
                            mod_break_vspace("medium"),
-                           mod_single_data_subset1_sidepanel_ui("data_subset1"),
-                           mod_break_vspace("medium"),
-                           mod_hypothesis_testing_in("hypothesis_tests_tab1")
+                           mod_single_data_subset1_sidepanel_ui("data_subset1")#,
+                           # mod_break_vspace("medium"),
+                           # mod_hypothesis_testing_in("hypothesis_tests_tab1")
           ),
           conditionalPanel("input.analysis_all == 'tab_2'",
                            mod_comparison_weeks_sidepanel_ui("comparison_weeks"),
                            mod_break_vspace("medium"),
                            mod_comparison_testcase_ui("testcase1", 1),
-                           mod_comparison_testcase_ui("testcase2", 2),
-                           mod_break_vspace("medium"),
-                           mod_hypothesis_testing_in("hypothesis_tests_tab2"))
+                           mod_comparison_testcase_ui("testcase2", 1),
+                           mod_break_vspace("medium")#,
+                           # mod_hypothesis_testing_in("hypothesis_tests_tab2")
+                           )
         ),
         main_panel = shiny.semantic::main_panel(
           shiny.semantic::tabset(
@@ -44,10 +45,10 @@ app_ui <- function(request) {
                        mod_single_data_plot_ou("data_subset3"),
                        mod_break_vspace("medium"),
                        h3("Data subset used"),
-                       reactable::reactableOutput("table"),
-                       mod_break_vspace("medium"),
-                       h3("Hypothesis tests"),
-                       mod_hypothesis_testing_ou("hypothesis_tests_single")
+                       reactable::reactableOutput("table")#,
+                       # mod_break_vspace("medium"),
+                       # h3("Hypothesis tests"),
+                       # mod_hypothesis_testing_ou("hypothesis_tests_single")
                        ),
                      id = "tab_1"),
                 list(menu = "Analysis - comparison of shops",
@@ -62,8 +63,8 @@ app_ui <- function(request) {
                                                        "data_plot_sc1"),
                            h4("Data subset used for scenario 1"),
                            reactable::reactableOutput("table_c1"),
-                           h4("Hypothesis tests for scenario 1"),
-                           mod_hypothesis_testing_ou("hypothesis_tests_TC1")
+                           h4("Hypothesis tests for scenario 1")
+                           # mod_hypothesis_testing_ou("hypothesis_tests_TC1")
                          ),
                          htmltools::tagList(
                            h3(tags$u(tags$em("Test scenario 2:"))),
@@ -72,7 +73,8 @@ app_ui <- function(request) {
                            h4("Data subset used for scenario 2"),
                            reactable::reactableOutput("table_c2"),
                            h4("Hypothesis tests for scenario 2"),
-                           mod_hypothesis_testing_ou("hypothesis_tests_TC2")),
+                           # mod_hypothesis_testing_ou("hypothesis_tests_TC2")
+                           ),
                          min_cell_width = "450px",
                          max_cell_width = "1fr"
                        )

@@ -1,7 +1,11 @@
 mod_comparison_weeks_sidepanel_ui <- function(id) {
   ns <- shiny::NS(id)
-  tagList(h3(tags$u(tags$em("Select test week and reference unit:"))),
-          mod_single_weeks_inp_testing_ui(id),
+  tagList(mod_weeks_inp_control_ui(id),
+          mod_weeks_out_dates_ui(id),
+          mod_break_vspace("small"),
+          mod_weeks_inp_testing_ui(id),
+          mod_break_vspace("small"),
+          h3(tags$u(tags$em("Select ANOVA settings: "))),
           shiny.semantic::selectInput(ns("sel_ref_unit"),
                                       "Reference Unit:",
                                       choices = list_ref_unit),
@@ -11,7 +15,9 @@ mod_comparison_weeks_sidepanel_ui <- function(id) {
 mod_comparison_data_subset0_srv <- function(id) {
   moduleServer(id, function(input, output, session) {
     range_weeks <- shiny::reactive({
-      range_weeks <- paste0("2022", input[["week_testing"]])
+      range_weeks <- c(input[["week_testing"]],
+                       seq(from = 33, to = 33 - input[["range_time_frq"]] + 1))
+      range_weeks <- paste0("2022", range_weeks)
       range_weeks <- as.numeric(range_weeks)
       range_weeks
     })

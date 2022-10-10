@@ -1,6 +1,6 @@
 #' Barplot of sales
 #'
-#' Either in fractions or counts
+#' Either in convrates or counts
 #'
 #' @description A shiny Module.
 #'

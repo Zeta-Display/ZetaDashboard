@@ -25,8 +25,8 @@ mod_data_subset_time_unit_mainpanel_ui <- function(id) {
       shiny.semantic::multiple_radio(
         ns("yscale"),
         "",
-        choices = c("count", "fraction"),
-        choices_value = c("count", "fraction"),
+        choices = c("count", "convrate"),
+        choices_value = c("count", "convrate"),
         selected = "count",
         position = "inline"
       ),
@@ -37,17 +37,17 @@ mod_data_subset_time_unit_mainpanel_ui <- function(id) {
     # shiny.semantic::selectInput(
     #   ns("yscale"),
     #   "Unit:",
-    #   choices = list(count = "cnt", fraction = "frac"),
-    #   selected = "frac")
+    #   choices = list(count = "cnt", convrate = "convrate"),
+    #   selected = "convrate")
     # tags$label(tags$b(`for` = "yscale",
     #                   style = "font-size:12.5px",
     #                   "Unit:")),
     # multiple_radio(
     #   ns("yscale"),
     #   "",
-    #   choices = c("count", "fraction"),
-    #   choices_value = c("cnt", "frac"),
-    #   selected = "frac",
+    #   choices = c("count", "convrate"),
+    #   choices_value = c("cnt", "convrate"),
+    #   selected = "convrate",
     #   position = "inline"
     # )
   )

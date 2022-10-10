@@ -6,11 +6,11 @@
 #' @noRd
 app_server <- function(input, output, session) {
   # Your application server logic
-  dates_taken <- mod_single_weeks_get_dates_srv("control_test_weeks")
-  mod_single_weeks_out_dates_srv("control_test_weeks",
-                                 dates_taken$start,
-                                 dates_taken$end,
-                                 dates_taken$num_weeks)
+  dates_taken <- mod_weeks_get_dates_srv("control_test_weeks")
+  mod_weeks_out_dates_srv("control_test_weeks",
+                          dates_taken$start,
+                          dates_taken$end,
+                          dates_taken$num_weeks)
   data_subsets0 <- mod_single_data_subset0_srv("control_test_weeks")
   ref_unit_taken <- mod_single_get_ref_unit_srv("control_test_weeks")
 
@@ -44,7 +44,12 @@ app_server <- function(input, output, session) {
   #
   adjust_input_control_stores("testcase1")
   adjust_input_control_stores("testcase2")
-  data0 <- mod_comparison_data_subset0_srv("comparison_weeks")
+  dates_taken <- mod_weeks_get_dates_srv("comparison_weeks")
+  mod_weeks_out_dates_srv("comparison_weeks",
+                          dates_taken$start,
+                          dates_taken$end,
+                          dates_taken$num_weeks)
+  data0       <- mod_comparison_data_subset0_srv("comparison_weeks")
   ref_unit_taken2  <- mod_comparison_get_ref_unit_srv("comparison_weeks")
 
   data_1_TC1 <- mod_comparison_data_subset1_srv("testcase1",
@@ -74,21 +79,21 @@ app_server <- function(input, output, session) {
   output$table_c1 <- reactable::renderReactable({
     reactable::reactable(data_2_TC1())
   })
-  htest_out1 <- mod_hypothesis_testing_srv(id = "hypothesis_tests_tab2",
-                                           data_1_TC1$data_weekly_count,
-                                           ref_unit_taken2,
-                                           test_butik_taken1,
-                                           type = "butik")
-  mod_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_TC1",
-                                      htest_out1)
+  # htest_out1 <- mod_hypothesis_testing_srv(id = "hypothesis_tests_tab2",
+  #                                          data_1_TC1$data_weekly_count,
+  #                                          ref_unit_taken2,
+  #                                          test_butik_taken1,
+  #                                          type = "butik")
+  # mod_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_TC1",
+  #                                     htest_out1)
   output$table_c2 <- reactable::renderReactable({
     reactable::reactable(data_2_TC2())
   })
-  htest_out2 <- mod_hypothesis_testing_srv(id = "hypothesis_tests_tab2",
-                                           data_1_TC2$data_weekly_count,
-                                           ref_unit_taken2,
-                                           test_butik_taken2,
-                                           type = "butik")
-  mod_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_TC2",
-                                      htest_out2)
+  # htest_out2 <- mod_hypothesis_testing_srv(id = "hypothesis_tests_tab2",
+  #                                          data_1_TC2$data_weekly_count,
+  #                                          ref_unit_taken2,
+  #                                          test_butik_taken2,
+  #                                          type = "butik")
+  # mod_hypothesis_testing_write_ou_srv(id = "hypothesis_tests_TC2",
+  #                                     htest_out2)
 }

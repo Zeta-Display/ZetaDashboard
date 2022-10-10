@@ -1,6 +1,6 @@
 #' Barplot of sales
 #'
-#' Either in fractions or counts
+#' Either in convrates or counts
 #'
 #' @description A shiny Module.
 #'
@@ -89,7 +89,7 @@ get_ggplot_data_c <- function(data_set,
                                          "group"))) %>%
       dplyr::group_by(group, vecka_time) %>%
       dplyr::summarise("{y_var}" := sum(.data[[y_var]]))
-  } else if (attr(data_out, which = "var_type") == "fraction") {
+  } else if (attr(data_out, which = "var_type") == "convrate") {
     data_out %>%
       dplyr::select(tidyselect::all_of(c("antal_kvitton",
                                          y_var,
