@@ -67,21 +67,22 @@ app_server <- function(input, output, session) {
                                               test_week = dates_taken$test_week,
                                               take_log = FALSE)
   # adjust_input_data_subset("data_subset2_c", data_2_TC1)
-  data_anova_out_1   <- mod_comparison_data_get_anova("data_subset2_c",
-                                                      data_ANOVA_TC1)
-  output$anova_out_1 <- shiny::renderPrint({
-    data_anova_out_1()
-  })
+  mod_comparison_data_run_anova("data_subset2_c", data_ANOVA_TC1, "anova_out_1")
+  mod_comparison_data_plot_anova("data_subset2_c",
+                                 data_ANOVA_TC1,
+                                 ref_unit_taken2,
+                                 "plot_anova_1")
+
   data_ANOVA_TC2 <- mod_comparison_data_anova("data_subset2_c",
                                               data_subsets = data_1_TC2,
                                               test_butiks = test_butik_taken2,
                                               test_week = dates_taken$test_week,
                                               take_log = FALSE)
-  data_anova_out_2   <- mod_comparison_data_get_anova("data_subset2_c",
-                                                      data_ANOVA_TC2)
-  output$anova_out_2 <- shiny::renderPrint({
-    data_anova_out_2()
-  })
+  mod_comparison_data_run_anova("data_subset2_c", data_ANOVA_TC2, "anova_out_2")
+  mod_comparison_data_plot_anova("data_subset2_c",
+                                 data_ANOVA_TC2,
+                                 ref_unit_taken2,
+                                 "plot_anova_2")
 
   data_2_TC1 <- mod_data_subset_time_unit_srv("data_subset2_c",
                                               data_1_TC1)

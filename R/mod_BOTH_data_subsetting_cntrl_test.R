@@ -18,7 +18,7 @@ mod_weeks_inp_testing_ui <- function(id) {
   shiny.semantic::selectInput(ns("week_testing"),
                               "Testing Week:",
                               choices = c(
-                                # "week 34" = 34,
+                                "week 34" = 34,
                                 "week 35" = 35,
                                 "week 36" = 36,
                                 "week 37" = 37,
