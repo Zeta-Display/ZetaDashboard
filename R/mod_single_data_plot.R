@@ -62,13 +62,15 @@ generate_ggplot <- function(data_set,
     date_breaks_taken <- compute_date_breaks(data_set, num_breaks = 12)
     ggplot_out <- ggplot_out + ggplot2::labs(y = y_lab, x = "days") +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 80)) +
-      ggplot2::scale_x_date(date_breaks = date_breaks_taken)
+      ggplot2::scale_x_discrete(breaks = date_breaks_taken)
+      # ggplot2::scale_x_date(date_breaks = date_breaks_taken)
   }
   ggplot_out
 }
 compute_date_breaks <- function(data_set, num_breaks = 12) {
   tmp_num <- max(1, ceiling(nrow(data_set)/num_breaks))
-  paste0(tmp_num, " days")
+  # paste0(tmp_num, " days")
+  as.character(data_set$vecka_time[c(rep(FALSE, times = tmp_num - 1), TRUE)])
 }
 get_ggplot_data <- function(data_set,
                             y_var,
@@ -77,14 +79,18 @@ get_ggplot_data <- function(data_set,
   stopifnot(shiny::is.reactive(data_set))
   stopifnot(shiny::is.reactive(test_week))
 
+  year_const <- 202200
+  range_testweek <- as.numeric(test_week()) + year_const
+
   data_out <- data_set()
-  data_out$group <- ifelse(data_out$vecka %in% (as.numeric(test_week()) + 202200),
+  data_out$group <- ifelse(data_out$vecka %in% range_testweek,
                            "testing",
                            "control")
   if(frequency == "daily") {
-    data_out$`vecka_time` <- as.Date(data_out$datum)
+    # data_out$`vecka_time` <- as.Date(data_out$datum)
+    data_out$`vecka_time` <- as.factor(data_out$datum)
   } else if (frequency == "weekly") {
-    data_out$`vecka_time`    <- paste0("2022-", data_out$vecka - 202200)
+    data_out$`vecka_time`    <- paste0("2022-", data_out$vecka - year_const)
   }
   data_out %>% dplyr::select(tidyselect::all_of(c(y_var,
                                                   "vecka_time",
