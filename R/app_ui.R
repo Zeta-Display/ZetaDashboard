@@ -63,6 +63,7 @@ app_ui <- function(request) {
                                                        "data_plot_sc1"),
                            h4("Data subset used for scenario 1"),
                            reactable::reactableOutput("table_c1"),
+                           mod_comparison_data_anova_ui("anova_out_1"),
                            h4("Hypothesis tests for scenario 1")
                            # mod_hypothesis_testing_ou("hypothesis_tests_TC1")
                          ),
@@ -72,6 +73,7 @@ app_ui <- function(request) {
                                                        "data_plot_sc2"),
                            h4("Data subset used for scenario 2"),
                            reactable::reactableOutput("table_c2"),
+                           mod_comparison_data_anova_ui("anova_out_2"),
                            h4("Hypothesis tests for scenario 2"),
                            # mod_hypothesis_testing_ou("hypothesis_tests_TC2")
                            ),
@@ -81,7 +83,7 @@ app_ui <- function(request) {
                      ),
                      id = "tab_2")
               ),
-            active = "tab_1",
+            active = "tab_2",
             id = "analysis_all"
           )
         )

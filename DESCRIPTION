@@ -25,7 +25,10 @@ Imports:
     magrittr,
     plotly,
     devtools,
-    stats
+    tidyr,
+    stats,
+    lmerTest,
+    lme4
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
