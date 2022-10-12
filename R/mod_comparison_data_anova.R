@@ -1,17 +1,56 @@
 mod_comparison_data_anova_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
-          h4(tags$u(tags$em("Select ANOVA settings: "))),
-          mod_break_vspace("small"),
-          shiny.semantic::checkbox_input(ns(paste0("logical_yscale")),
-                                         "Logarithmic scale of dep. var?",
-                                         is_marked = FALSE),
-
+    h4(tags$u(tags$em("Select ANOVA settings: "))),
+    mod_break_vspace("small"),
+    shiny.semantic::flowLayout(
+      tags$label(tags$b(`for` = "radio_time_frequency",
+                        style = "font-size:12.5px",
+                        "Frequency:")),
+      shiny.semantic::multiple_radio(
+        ns("time_frequency"),
+        "",
+        choices = c("daily", "hourly"),
+        choices_value = c("daily", "hourly"),
+        selected = "weekly", position = "grouped",
+        type = "radio"),
+      mod_break_vspace("small"),
+      tags$label(tags$b(`for` = "yscale",
+                        style = "font-size:12.5px",
+                        "Unit:")),
+      shiny.semantic::multiple_radio(
+        ns("yscale"),
+        "",
+        choices = c("count", "convrate"),
+        choices_value = c("count", "convrate"),
+        selected = "count",
+        position = "inline"
+      ),
+      min_cell_width = "50px",
+      max_cell_width = "70px",
+      column_gap = "10px"
+    ),
+    mod_break_vspace("small"),
+    shiny.semantic::flowLayout(
+      shiny.semantic::checkbox_input(ns("logical_yscale"),
+                                     "Logarithmic y-scale?",
+                                     is_marked = FALSE),
+      shiny.semantic::numeric_input(ns("log_scl_cor"),
+                                    "Downscale by: ",
+                                    value = 0,
+                                    min = 0,
+                                    max = 100)
+      ,
+      min_cell_width = "100px",
+      max_cell_width = "200px",
+      column_gap = "10px"),
+    mod_break_vspace("small")
   )
 }
 mod_comparison_data_anova_ou <- function(id, plot_name, out_name) {
   ns <- shiny::NS(id)
   shiny::tagList(
+    h5(tags$u(tags$em("ANOVA - estimated effects: "))),
     shiny::plotOutput(ns(plot_name)),
     mod_break_vspace("small"),
     htmltools::tags$head(htmltools::tags$style(paste0("#", ns(out_name),
@@ -20,13 +59,13 @@ mod_comparison_data_anova_ou <- function(id, plot_name, out_name) {
                                                         font-style: verbatim;}")
     )
     ),
+    h5(tags$u(tags$em("ANOVA - estimation output: "))),
     shiny::verbatimTextOutput(ns(out_name))
   )
 }
 mod_comparison_data_anova <-  function(id, data_subsets,
                                        test_butiks,
-                                       test_week,
-                                       take_log) {
+                                       test_week) {
   shiny::moduleServer(id, function(input, output, session) {
     data_anova_subset <- shiny::reactive({
       names_to_choose <- names(data_subsets)
@@ -40,7 +79,8 @@ mod_comparison_data_anova <-  function(id, data_subsets,
       id_total <- which(grepl("antal_kvitton", names(data_anova_out)))
       data_anova_out <- data_anova_out[-c(id_total)]
 
-      id_no_pivot <- which(!grepl("(butik|vecka|datum)", names(data_anova_out)))
+      id_no_pivot <- which(!grepl("(butik|vecka|datum)",
+                                  names(data_anova_out)))
       data_anova_out <- data_anova_out %>%
         tidyr::pivot_longer(id_no_pivot,
                             names_to = "unit",
@@ -60,9 +100,12 @@ mod_comparison_data_anova <-  function(id, data_subsets,
         dplyr::mutate(vecka_type = ifelse(.data$vecka %in% test_week_range,
                                           "kampanj", "no-kampanj"))
 
-      # browser()
-      if (isTRUE(take_log)) {
-        data_anova_out$y_m <- log(data_anova_out$y_m)
+      if (isTRUE(input[["logical_yscale"]])) {
+        tmp_val <- log(data_anova_out$y_m)
+        rep_val <- min(tmp_val[is.finite(tmp_val)]) - input[["log_scl_cor"]]
+        tmp_val <- replace(tmp_val, tmp_val == 0, rep_val)
+        tmp_val <- replace(tmp_val, is.infinite(tmp_val), rep_val)
+        data_anova_out$y_m <- tmp_val
       }
       data_anova_out$datum <- NULL
       data_anova_out$butik_type <- factor(data_anova_out$butik_type,
