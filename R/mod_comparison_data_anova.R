@@ -74,12 +74,14 @@ mod_comparison_data_anova <-  function(id, data_subsets,
     })
     shiny::reactive({
       data_anova_out <- data_anova_subset()
-      id_total <- which(grepl("TOTAL", names(data_anova_out)))
-      data_anova_out <- data_anova_out[-c(id_total)]
-      id_total <- which(grepl("antal_kvitton", names(data_anova_out)))
-      data_anova_out <- data_anova_out[-c(id_total)]
-
-      id_no_pivot <- which(!grepl("(butik|vecka|datum)",
+      ref_unit_taken <- paste0(attr(data_anova_out, which = "ref_unit"),
+                               "_", input[["yscale"]])
+      main_vars <- c("butik", "vecka", "datum", "timme")
+      data_anova_out <- data_anova_out %>%
+        dplyr::select(dplyr::any_of(main_vars),
+                      dplyr::contains(ref_unit_taken),
+                      -dplyr::contains("TOTAL"))
+      id_no_pivot <- which(!grepl("(butik|vecka|datum|timme)",
                                   names(data_anova_out)))
       data_anova_out <- data_anova_out %>%
         tidyr::pivot_longer(id_no_pivot,
@@ -142,7 +144,7 @@ mod_comparison_data_plot_anova <- function(id,
     output[[plot_name]] <- shiny::renderPlot({
       coef_anova <- lme4::fixef(anova_summary())
       y_start <- coef_anova[1] + coef_anova[3]
-      y_end   <- coef_anova[2] + coef_anova[2] + coef_anova[3]
+      y_end   <- coef_anova[1] + coef_anova[2] + coef_anova[3]
       data_plot <- data_subset()
       ref_unit <- attr(data_plot, which = "ref_unit")
 
