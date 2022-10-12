@@ -30,18 +30,26 @@ mod_comparison_testcase_ui <- function(id, num) {
 adjust_input_control_stores <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::observeEvent(input[["butik_size"]], {
-      # if (input[["butik_size"]] == "sma") {
-      #   # %in% butik_lab_cntr[["sma"]]
-      # choices_vars <- butik_lab_test[["sma"]]
-      # selected_vars <- butik_lab_test[["sma"]][1]
-      # } else if (input[["sel_butik_cntrl"]] == "stora") {
-      # choices_vars <- butik_lab_test[["sto"]]
-      # selected_vars <- butik_lab_test[["sto"]][1]
-      # }
-      # shiny.semantic::updateSelectInput(session,
-      #                                   inputId = "sel_butik_test",
-      #                                   choices = choices_vars,
-      #                                   selected = selected_vars)
+      # browser()
+      if (input[["butik_size"]] == "sma") {
+      choices_vars_test <- butik_lab_test[["sma"]]
+      selected_vars_test <- butik_lab_test[["sma"]][1]
+      choices_vars_cntrl <- butik_lab_cntr[["sma"]]
+      selected_vars_cntrl <- butik_lab_cntr[["sma"]][1]
+      } else if (input[["butik_size"]] == "stora") {
+        choices_vars_test <- butik_lab_test[["stora"]]
+        selected_vars_test <- butik_lab_test[["stora"]][1]
+        choices_vars_cntrl <- butik_lab_cntr[["stora"]]
+        selected_vars_cntrl <- butik_lab_cntr[["stora"]][1]
+      }
+      shiny.semantic::updateSelectInput(session,
+                                        inputId = "sel_butik_test",
+                                        choices = choices_vars_test,
+                                        selected = selected_vars_test)
+      shiny.semantic::updateSelectInput(session,
+                                        inputId = "sel_butik_cntrl",
+                                        choices = choices_vars_cntrl,
+                                        selected = selected_vars_cntrl)
     })
   })
 }
@@ -55,113 +63,29 @@ mod_comparison_data_subset1_srv <- function(id, data_subsets) {
       range_butik
     })
     data_weekly <- shiny::reactive({
-      # data_subsets[[input[["butik_size"]]]]
       data_out <- data_subsets[[1]]() %>%
         dplyr::filter(.data$butik %in% range_butik()) %>%
         dplyr::select(dplyr::any_of(c("butik", "vecka", "datum",
                                       "timme", "antal_kvitton")),
                       dplyr::contains(input[["ref_unit"]]))
-      # %>%
-      #   dplyr::select(-dplyr::contains("convrate")) %>%
-      #   dplyr::mutate_at(dplyr::vars(dplyr::contains("count")), round, 0)
-      # repl_tmp <- "_count"
+
       data_out$butik <- replace_butik_lab_with_var(data_out$butik)
       attr(data_out, which = "ref_unit")  <- input[["ref_unit"]]
-      #       data_out <- rename_data_set_with_var(data_out, skip = 3,
-      #                                            ref_unit = paste0(ref_unit_taken(),
-      #                                                              repl_tmp))
-      #       attr(data_out, which = "var_type") <- "count"
       data_out
     })
     data_daily <- shiny::reactive({
-      # browser()
-      # data_subsets[[input[["butik_size"]]]]
+
       data_out <- data_subsets[[2]]() %>%
         dplyr::filter(.data$butik %in% range_butik()) %>%
         dplyr::select(dplyr::any_of(c("butik", "vecka", "datum",
                                       "timme", "antal_kvitton")),
                       dplyr::contains(input[["ref_unit"]]))
-      # %>%
-      #   dplyr::select(-dplyr::contains("convrate")) %>%
-      #   dplyr::mutate_at(dplyr::vars(dplyr::contains("count")), round, 0)
-      # repl_tmp <- "_count"
       data_out$butik <- replace_butik_lab_with_var(data_out$butik)
       attr(data_out, which = "ref_unit")  <- input[["ref_unit"]]
-      # data_out <- rename_data_set_with_var(data_out, skip = 4,
-      #                                      ref_unit = paste0(ref_unit_taken(),
-      #                                                        repl_tmp))
-      # attr(data_out, which = "var_type") <- "count"
       data_out
     })
     list(data_weekly = data_weekly,
          data_daily= data_daily)
-    # data_weekly_count <- shiny::reactive({
-    #   # data_subsets[[input[["butik_size"]]]]
-    #   data_out <- data_subsets[[1]]() %>%
-    #     dplyr::filter(.data$butik %in% range_butik()) %>%
-    #     dplyr::select(-dplyr::contains("convrate")) %>%
-    #     dplyr::mutate_at(dplyr::vars(dplyr::contains("count")), round, 0)
-    #   repl_tmp <- "_count"
-    #   data_out$butik <- replace_butik_lab_with_var(data_out$butik)
-    #
-    #   data_out <- rename_data_set_with_var(data_out, skip = 3,
-    #                                        ref_unit = paste0(ref_unit_taken(),
-    #                                                          repl_tmp))
-    #   attr(data_out, which = "var_type") <- "count"
-    #   data_out
-    # })
-    # data_daily_count <- shiny::reactive({
-    #   # browser()
-    #   # data_subsets[[input[["butik_size"]]]]
-    #   data_out <- data_subsets[[2]]() %>%
-    #     dplyr::filter(.data$butik %in% range_butik()) %>%
-    #     dplyr::select(-dplyr::contains("convrate")) %>%
-    #     dplyr::mutate_at(dplyr::vars(dplyr::contains("count")), round, 0)
-    #   repl_tmp <- "_count"
-    #   data_out$butik <- replace_butik_lab_with_var(data_out$butik)
-    #
-    #   data_out <- rename_data_set_with_var(data_out, skip = 4,
-    #                                        ref_unit = paste0(ref_unit_taken(),
-    #                                                          repl_tmp))
-    #   attr(data_out, which = "var_type") <- "count"
-    #   data_out
-    # })
-    # data_weekly_convrate <- shiny::reactive({
-    #   # browser()
-    #   # data_subsets[[input[["butik_size"]]]]
-    #   data_out <- data_subsets[[1]]() %>%
-    #     dplyr::filter(.data$butik %in% range_butik())  %>%
-    #     dplyr::select(-dplyr::contains("count")) %>%
-    #     dplyr::mutate_at(dplyr::vars(dplyr::contains("convrate")), round, 4)
-    #   repl_tmp <- "_convrate"
-    #   data_out$butik <- replace_butik_lab_with_var(data_out$butik)
-    #
-    #   data_out <- rename_data_set_with_var(data_out, skip = 3,
-    #                                        ref_unit = paste0(ref_unit_taken(),
-    #                                                          repl_tmp))
-    #   attr(data_out, which = "var_type") <- "convrate"
-    #   data_out
-    # })
-    # data_daily_convrate <- shiny::reactive({
-    #   # browser()
-    #   # data_subsets[[input[["butik_size"]]]]
-    #   data_out <- data_subsets[[2]]() %>%
-    #     dplyr::filter(.data$butik %in% range_butik())  %>%
-    #     dplyr::select(-dplyr::contains("count")) %>%
-    #     dplyr::mutate_at(dplyr::vars(dplyr::contains("convrate")), round, 4)
-    #   repl_tmp <- "_convrate"
-    #   data_out$butik <- replace_butik_lab_with_var(data_out$butik)
-    #
-    #   data_out <- rename_data_set_with_var(data_out, skip = 4,
-    #                                        ref_unit = paste0(ref_unit_taken(),
-    #                                                          repl_tmp))
-    #   attr(data_out, which = "var_type") <- "convrate"
-    #   data_out
-    # })
-    # list(data_weekly_count = data_weekly_count,
-    #      data_weekly_convrate = data_weekly_convrate,
-    #      data_daily_count = data_daily_count,
-    #      data_daily_convrate = data_daily_convrate)
   })
 }
 mod_comparison_get_test_butik_srv <- function(id) {

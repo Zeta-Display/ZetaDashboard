@@ -75,38 +75,36 @@ app_server <- function(input, output, session) {
                                dates_taken$test_week,
                                "data_plot_sc2",
                                "table_c2")
-  # data_ANOVA_TC1 <- mod_comparison_data_anova("data_descriptive_1",
-  #                                             data_subsets = data_1_TC1,
-  #                                             test_butiks = test_butik_taken1,
-  #                                             test_week = dates_taken$test_week,
-  #                                             take_log = FALSE)
-  # anova_summary_1 <- mod_comparison_data_run_anova("data_descriptive_1",
-  #                                                  data_ANOVA_TC1,
-  #                                                  "anova_out_1")
-  # mod_comparison_data_plot_anova("data_descriptive_1",
-  #                                data_ANOVA_TC1,
-  #                                "plot_anova_1",
-  #                                anova_summary_1)
-  # output$table_a1 <- reactable::renderReactable({
-  #   reactable::reactable(data_ANOVA_TC1())
-  # })
-  # #
-  # #
-  # data_ANOVA_TC2 <- mod_comparison_data_anova("data_descriptive_2",
-  #                                             data_subsets = data_1_TC2,
-  #                                             test_butiks = test_butik_taken2,
-  #                                             test_week = dates_taken$test_week,
-  #                                             take_log = FALSE)
-  # anova_summary_2 <- mod_comparison_data_run_anova("data_descriptive_2",
-  #                                                  data_ANOVA_TC2,
-  #                                                  "anova_out_2")
-  # mod_comparison_data_plot_anova("data_descriptive_2",
-  #                                data_ANOVA_TC2,
-  #                                "plot_anova_2",
-  #                                anova_summary_2)
-  # output$table_a2 <- reactable::renderReactable({
-  #   reactable::reactable(data_ANOVA_TC2())
-  # })
+  data_ANOVA_TC1 <- mod_comparison_data_anova("data_descriptive_1",
+                                              data_subsets = data_1_TC1,
+                                              test_butiks = test_butik_taken1,
+                                              test_week = dates_taken$test_week,
+                                              take_log = FALSE)
+  anova_summary_1 <- mod_comparison_data_run_anova("data_descriptive_1",
+                                                   data_ANOVA_TC1,
+                                                   "anova_out_1")
+  mod_comparison_data_plot_anova("data_descriptive_1",
+                                 data_ANOVA_TC1,
+                                 "plot_anova_1",
+                                 anova_summary_1)
+  output$table_a1 <- reactable::renderReactable({
+    reactable::reactable(data_ANOVA_TC1())
+  })
+  data_ANOVA_TC2 <- mod_comparison_data_anova("data_descriptive_2",
+                                              data_subsets = data_1_TC2,
+                                              test_butiks = test_butik_taken2,
+                                              test_week = dates_taken$test_week,
+                                              take_log = FALSE)
+  anova_summary_2 <- mod_comparison_data_run_anova("data_descriptive_2",
+                                                   data_ANOVA_TC2,
+                                                   "anova_out_2")
+  mod_comparison_data_plot_anova("data_descriptive_2",
+                                 data_ANOVA_TC2,
+                                 "plot_anova_2",
+                                 anova_summary_2)
+  output$table_a2 <- reactable::renderReactable({
+    reactable::reactable(data_ANOVA_TC2())
+  })
   #
   #
   #

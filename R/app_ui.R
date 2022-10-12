@@ -60,10 +60,10 @@ app_ui <- function(request) {
                            mod_comparison_data_descriptive_ou("data_descriptive_1",
                                                               1,
                                                               "data_plot_sc1",
-                                                              "table_c1")#,
-                           # mod_comparison_data_anova_ou("data_descriptive_1",
-                           #                              "plot_anova_1",
-                           #                              "anova_out_1"),
+                                                              "table_c1"),
+                           mod_comparison_data_anova_ou("data_descriptive_1",
+                                                        "plot_anova_1",
+                                                        "anova_out_1")
                            # h4("Hypothesis tests for scenario 1")
                            # mod_hypothesis_testing_ou("hypothesis_tests_TC1")
                          ),
@@ -73,10 +73,10 @@ app_ui <- function(request) {
                            mod_comparison_data_descriptive_ou("data_descriptive_2",
                                                               2,
                                                               "data_plot_sc2",
-                                                              "table_c2")#,
-                           # mod_comparison_data_anova_ou("data_descriptive_2",
-                           #                              "plot_anova_2",
-                           #                              "anova_out_2"),
+                                                              "table_c2"),
+                           mod_comparison_data_anova_ou("data_descriptive_2",
+                                                        "plot_anova_2",
+                                                        "anova_out_2")
                            # h4("Hypothesis tests for scenario 2"),
                            # mod_hypothesis_testing_ou("hypothesis_tests_TC2")
                            ),
