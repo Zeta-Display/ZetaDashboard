@@ -23,8 +23,9 @@ mod_weeks_inp_testing_ui <- function(id) {
                                 "week 36" = 36,
                                 "week 37" = 37,
                                 "week 38" = 38,
-                                "week 39" = 39),
-                              selected = 35,
+                                "week 39" = 39,
+                                "week 40" = 40),
+                              selected = 34,
                               multiple = FALSE)
 }
 mod_weeks_out_dates_ui <- function(id) {

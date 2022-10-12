@@ -19,7 +19,7 @@ rename_data_set_with_var <- function(data_out,
                                      skip,
                                      ref_unit) {
   data_tmp <- data_out
-  names(data_tmp)[-c(1:skip)] <- substring(names(data_tmp)[-c(1:skip)],
-                                           first = nchar(ref_unit) + 2)
+  names(data_tmp)[-skip] <- substring(names(data_tmp)[-skip],
+                                      first = nchar(ref_unit) + 2)
   data_tmp
 }

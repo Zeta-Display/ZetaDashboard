@@ -29,10 +29,12 @@ global <- quote({
   match_list_butik_sto_all  <- c(match_list_butik_sto_cntr,
                                  match_list_butik_sto_test)
 
+  match_list_butik_all <- c(match_list_butik_sma_all,
+                            match_list_butik_sto_all)
   # butik_lab_all <- names(match_list_butik_sto_all)
   # butik_val_all <- match_list_butik_sto_all
-  butik_lab_all <- names(match_list_butik_sma_all)
-  butik_val_all <- match_list_butik_sma_all
+  butik_lab_all <- names(match_list_butik_all)
+  butik_val_all <- match_list_butik_all
 
   butik_lab_cntr <- list(sma = names(match_list_butik_sma_cntr),
                          sto = names(match_list_butik_sto_cntr))

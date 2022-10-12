@@ -34,22 +34,6 @@ mod_data_subset_time_unit_mainpanel_ui <- function(id) {
       max_cell_width = "70px",
       column_gap = "10px"
     )
-    # shiny.semantic::selectInput(
-    #   ns("yscale"),
-    #   "Unit:",
-    #   choices = list(count = "cnt", convrate = "convrate"),
-    #   selected = "convrate")
-    # tags$label(tags$b(`for` = "yscale",
-    #                   style = "font-size:12.5px",
-    #                   "Unit:")),
-    # multiple_radio(
-    #   ns("yscale"),
-    #   "",
-    #   choices = c("count", "convrate"),
-    #   choices_value = c("cnt", "convrate"),
-    #   selected = "convrate",
-    #   position = "inline"
-    # )
   )
 }
 mod_data_subset_time_unit_srv <- function(id, data_subsets) {
@@ -67,7 +51,8 @@ adjust_input_data_subset <- function(id, data_subset) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::observeEvent(data_subset(), {
       choices_vars <- setdiff(names(data_subset()),
-                              c("butik", "vecka", "datum", "antal_kvitton"))
+                              c("butik", "vecka", "datum",
+                                "timme,", "antal_kvitton"))
       shiny.semantic::updateSelectInput(session,
                                         inputId = "dep_vars_select",
                                         choices = choices_vars)

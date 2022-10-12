@@ -7,7 +7,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
       repl_tmp <- "_count"
       data_out$butik <- replace_butik_lab_with_var(data_out$butik)
 
-      data_out <- rename_data_set_with_var(data_out, skip = 3,
+      data_out <- rename_data_set_with_var(data_out, skip = 1:3,
                                            ref_unit = paste0(input$sel_ref_unit,
                                                              repl_tmp))
       data_out
@@ -19,7 +19,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
       data_out$butik <- replace_butik_lab_with_var(data_out$butik)
 
       repl_tmp <- "_count"
-      data_out <- rename_data_set_with_var(data_out, skip = 4,
+      data_out <- rename_data_set_with_var(data_out, skip = 1:4,
                                            ref_unit = paste0(input$sel_ref_unit,
                                                              repl_tmp))
       data_out
@@ -31,7 +31,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
       repl_tmp <- "_convrate"
       data_out$butik <- replace_butik_lab_with_var(data_out$butik)
 
-      data_out <- rename_data_set_with_var(data_out, skip = 3,
+      data_out <- rename_data_set_with_var(data_out, skip = 1:3,
                                            ref_unit = paste0(input$sel_ref_unit,
                                                              repl_tmp))
       data_out
@@ -43,7 +43,7 @@ mod_single_data_subset2_srv <- function(id, data_subsets) {
       repl_tmp <- "_convrate"
       data_out$butik <- replace_butik_lab_with_var(data_out$butik)
 
-      data_out <- rename_data_set_with_var(data_out, skip = 4,
+      data_out <- rename_data_set_with_var(data_out, skip = 1:4,
                                            ref_unit = paste0(input$sel_ref_unit,
                                                              repl_tmp))
       data_out

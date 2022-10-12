@@ -26,9 +26,9 @@ app_ui <- function(request) {
           ),
           conditionalPanel("input.analysis_all == 'tab_2'",
                            mod_comparison_weeks_sidepanel_ui("comparison_weeks"),
-                           mod_break_vspace("medium"),
+                           # mod_comparison_data_anova_ui("comparison_weeks"),
                            mod_comparison_testcase_ui("testcase1", 1),
-                           mod_comparison_testcase_ui("testcase2", 1),
+                           mod_comparison_testcase_ui("testcase2", 2),
                            mod_break_vspace("medium")#,
                            # mod_hypothesis_testing_in("hypothesis_tests_tab2")
                            )
@@ -53,32 +53,31 @@ app_ui <- function(request) {
                      id = "tab_1"),
                 list(menu = "Analysis - comparison of shops",
                      content = div(
-                       mod_break_vspace("small"),
-                       mod_data_subset_time_unit_mainpanel_ui("data_subset2_c"),
-                       mod_break_vspace("medium"),
                        shiny.semantic::flow_layout(
                          htmltools::tagList(
                            h3(tags$u(tags$em("Test scenario 1:"))),
-                           mod_comparison_data_plot_ou("data_subset2_c",
-                                                       "data_plot_sc1"),
-                           h4("Data subset used for scenario 1"),
-                           reactable::reactableOutput("table_c1"),
-                           mod_comparison_data_anova_ui("data_subset2_c",
-                                                        "plot_anova_1",
-                                                        "anova_out_1"),
-                           h4("Hypothesis tests for scenario 1")
+                           mod_comparison_data_descriptive_mainpanel_ui("data_descriptive_1"),
+                           mod_comparison_data_descriptive_ou("data_descriptive_1",
+                                                              1,
+                                                              "data_plot_sc1",
+                                                              "table_c1")#,
+                           # mod_comparison_data_anova_ou("data_descriptive_1",
+                           #                              "plot_anova_1",
+                           #                              "anova_out_1"),
+                           # h4("Hypothesis tests for scenario 1")
                            # mod_hypothesis_testing_ou("hypothesis_tests_TC1")
                          ),
                          htmltools::tagList(
                            h3(tags$u(tags$em("Test scenario 2:"))),
-                           mod_comparison_data_plot_ou("data_subset2_c",
-                                                       "data_plot_sc2"),
-                           h4("Data subset used for scenario 2"),
-                           reactable::reactableOutput("table_c2"),
-                           mod_comparison_data_anova_ui("data_subset2_c",
-                                                        "plot_anova_2",
-                                                        "anova_out_2"),
-                           h4("Hypothesis tests for scenario 2"),
+                           mod_comparison_data_descriptive_mainpanel_ui("data_descriptive_2"),
+                           mod_comparison_data_descriptive_ou("data_descriptive_2",
+                                                              2,
+                                                              "data_plot_sc2",
+                                                              "table_c2")#,
+                           # mod_comparison_data_anova_ou("data_descriptive_2",
+                           #                              "plot_anova_2",
+                           #                              "anova_out_2"),
+                           # h4("Hypothesis tests for scenario 2"),
                            # mod_hypothesis_testing_ou("hypothesis_tests_TC2")
                            ),
                          min_cell_width = "450px",

@@ -67,10 +67,19 @@ generate_ggplot <- function(data_set,
   }
   ggplot_out
 }
-compute_date_breaks <- function(data_set, num_breaks = 12) {
-  tmp_num <- max(1, ceiling(nrow(data_set)/num_breaks))
+compute_date_breaks <- function(data_set, num_breaks) {
+  nrow_data_uniq_dates <- length(unique(data_set$vecka_time))
+  tmp_num <- max(1, ceiling(nrow_data_uniq_dates/num_breaks))
+  ind_dates <- c(TRUE, rep(FALSE, times = tmp_num - 1))
+
+  num_rep_f <- nrow_data_uniq_dates %/% tmp_num
+  num_rep_r <- nrow_data_uniq_dates %% tmp_num
+  ind_dates <- c(rep(ind_dates, times = num_rep_f),
+                 ind_dates[1:num_rep_r])
+  dates_out <- sort(unique(as.character(data_set$vecka_time)),
+                    decreasing = TRUE)
   # paste0(tmp_num, " days")
-  as.character(data_set$vecka_time[c(rep(FALSE, times = tmp_num - 1), TRUE)])
+  dates_out[ind_dates]
 }
 get_ggplot_data <- function(data_set,
                             y_var,
@@ -97,5 +106,10 @@ get_ggplot_data <- function(data_set,
                                                   "group")))
 }
 generate_plotly <- function(ggplot_to_use) {
-  plotly::ggplotly(ggplot_to_use)
+  plotly::ggplotly(ggplot_to_use) %>%
+    plotly::layout(legend = list(
+      # orientation = "h",
+      #                            x = -0.5,
+      #                            y = 1.5,
+      font = list(size = 10)))
 }

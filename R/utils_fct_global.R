@@ -50,6 +50,7 @@ get_zeta_display_color_settings <- function() {
                                                           hjust = 0.5),
                        plot.subtitle = ggplot2::element_text(colour = f_col,
                                                              vjust = 1,
+                                                             hjust = 0.5,
                                                              size = f_size),
                        plot.caption = ggplot2::element_text(colour = f_col,
                                                             vjust = 1,
