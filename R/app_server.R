@@ -42,8 +42,14 @@ app_server <- function(input, output, session) {
   #
   #
   #
-  adjust_input_control_stores("testcase1")
-  adjust_input_control_stores("testcase2")
+  adjust_input_stores("testcase1")
+  adjust_input_stores_control("testcase1")
+  adjust_input_stores_test("testcase1")
+  #
+  adjust_input_stores("testcase2")
+  adjust_input_stores_control("testcase2")
+  adjust_input_stores_test("testcase2")
+  #
   dates_taken <- mod_weeks_get_dates_srv("comparison_weeks")
   mod_weeks_out_dates_srv("comparison_weeks",
                           dates_taken$start,

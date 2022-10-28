@@ -5,37 +5,28 @@
     {
       "control":
       {
-        "GÖTEBORG HÖGSBOHÖJD": ["goeteborg hgb"],
-        "STOCKHOLM HÄSSELBY STRAND": ["stockholm hsb"],
-        "STOCKHOLM VÄSTERTORP": ["stockholm vst"],
-        "GÖTEBORG MAJORNA": ["goeteborg mjr"],
-        "VENDELSÖ SÅGEN": ["vendelsoe sgn"],
-        "TROLLHÄTTAN HJORTMOSSEN": ["trollhaettan hjm"]
+        "OSKARSTRÖM BLÅKLINTSVÄGEN": ["oskarstroem"],
+        "NORRKÖPING LASARETTSGATAN": ["norrkoeping"],
+        "ÖRNSKÖLDSVIK DOMSJÖ": ["oernskoelds"]
       },
       "testing":
       {
-        "ALFTA VÄSTANÅGATAN": ["alfta"],
-        "HUDDINGE MATBÖRSEN": ["huddinge mbs"],
-        "FALUN HOSJÖ": ["falun hsj"],
-        "KISA C": ["kisa c"],
-        "ÖSTERVÅLA TORGET": ["oestervala trg"],
-        "GÖTEBORG GULDHEDEN": ["goeteborg gdn"]
+        "UPPSALA VÄSTERTORG": ["uppsala"],
+        "DALA-JÄRNA MYRBACKA": ["dala"]
       }
     },
     "stora":
     {
       "control":
       {
-        "LINKÖPING RYD": ["linkoeping ryd"],
-        "GÖTEBORG KORTEDALA TORG": ["goeteborg trg"],
-        "UPPSALA SVAVA C": ["uppsala slv"],
-        "GÖTEBORG MASTHUGGSTORGET": ["goeteborg mgs"]
+        "FALUN C": ["falun"],
+        "GÖTEBORG STIGBERGSTORGET": ["goeteborg"],
+        "STOCKHOLM SKARPNÄCK": ["stockholm"]
       },
       "testing":
       {
-        "LEKSAND C": ["leksand c"],
-        "HEDEMORA GUSSARVET": ["hedemora gsv"],
-        "VÄNERSBORG TORPA": ["vaenersborg trp"]
+     "MÖLNLYCKE C": ["moelnlycke"],
+     "MALMÖ TRIANGELN": ["triangeln"]
       }
     }
   },
