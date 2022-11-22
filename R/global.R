@@ -19,7 +19,10 @@ global <- quote({
   weeks_inp_choices <- c("week 34" = 34, "week 35" = 35,
                          "week 36" = 36, "week 37" = 37,
                          "week 38" = 38, "week 39" = 39,
-                         "week 40" = 40, "week 41" = 41)
+                         "week 40" = 40, "week 41" = 41,
+                         "week 42" = 42, "week 43" = 43,
+                         "week 44" = 44, "week 45" = 45,
+                         "week 46" = 46)
   weeks_inp_selected <- 34
 
   match_list <- jsonlite::fromJSON("inst/meta/match_list.json")
