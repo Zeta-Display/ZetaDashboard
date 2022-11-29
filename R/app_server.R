@@ -5,6 +5,9 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
+  shiny::observeEvent(input$my_logout, {
+    auth0::logout()
+  })
   # Your application server logic
   dates_taken <- mod_weeks_get_dates_srv("control_test_weeks")
   mod_weeks_out_dates_srv("control_test_weeks",

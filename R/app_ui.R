@@ -29,8 +29,10 @@ app_ui <- function(request) {
                            # mod_comparison_data_anova_ui("comparison_weeks"),
                            mod_comparison_testcase_ui("testcase1", 1),
                            mod_comparison_testcase_ui("testcase2", 2),
-                           mod_break_vspace("medium")#,
+                           mod_break_vspace("medium"),
                            # mod_hypothesis_testing_in("hypothesis_tests_tab2")
+                           auth0::logoutButton(label = "Log out",
+                                               id = "my_logout")
                            )
         ),
         main_panel = shiny.semantic::main_panel(
@@ -120,6 +122,3 @@ golem_add_external_resources <- function() {
     # for example, you can add shinyalert::useShinyalert()
   )
 }
-
-
-library(shiny.semantic)

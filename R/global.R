@@ -70,5 +70,5 @@ global <- quote({
                       Kampanj = "kampanj",
                       Skylttyp = "skylttyp")
   get_zeta_display_color_settings()
-  }
-  )
+}
+)

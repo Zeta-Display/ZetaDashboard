@@ -1,0 +1,7 @@
+name: ZetaDashboard
+remote_url: 'https://cologne-analytics.shinyapps.io/ZetaDashboard/'
+auth0_config:
+  api_url: https://dev-o650qsvbd0og4l53.eu.auth0.com
+  credentials:
+    key: BdIgIMXA1knhJzqsmBqMPwEhy3Gc7uhk
+    secret: zC69HEwGocwLZTrvTDeKhsLetBnKdtk1T9F_vK98RnvubH1NFiBB5b3WPMaO3_qk
