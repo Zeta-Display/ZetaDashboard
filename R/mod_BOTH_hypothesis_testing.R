@@ -59,12 +59,12 @@ mod_hypothesis_testing_srv <- function(id,
 
       options_taken <- list(conf_level = input[["confidence"]],
                             alternative = input[["alternative_type"]])
-      test_out <- ZetaAnalyticsTB::perform_tests(data_set = data_subset(),
-                                                 type_test = input[["type_test"]],
-                                                 type_group_var =type_group_var,
-                                                 cntrl_group = cntr_group_full,
-                                                 test_group  = test_group_full,
-                                                 options = options_taken)
+      test_out <- ZetaAnalyticsTB::hs_perform_tests(data_set = data_subset(),
+                                                    type_test = input[["type_test"]],
+                                                    type_group_var =type_group_var,
+                                                    cntrl_group = cntr_group_full,
+                                                    test_group  = test_group_full,
+                                                    options = options_taken)
       test_out
     })
   })

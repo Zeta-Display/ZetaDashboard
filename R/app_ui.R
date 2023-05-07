@@ -15,7 +15,7 @@ app_ui <- function(request) {
                                  width = "10%",
                                  align = "right"),
                              "Hemköp sales analysis")),
-      sidebar_layout(
+      shiny.semantic::sidebar_layout(
         sidebar_panel = shiny.semantic::sidebar_panel(
           conditionalPanel("input.analysis_all == 'tab_1'",
                            mod_single_weeks_sidepanel_ui("control_test_weeks"),
